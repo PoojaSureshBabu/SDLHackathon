@@ -6,9 +6,11 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -377,7 +379,14 @@ public class SdlService extends Service implements IProxyListenerALM{
 			if (notification.getFirstRun()) {
 				// send welcome message if applicable
 				//performWelcomeMessage();
-				performAlert();
+				final Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						performAlert();
+					}
+				}, 5000);
+
 			}
 			// Other HMI (Show, PerformInteraction, etc.) would go here
 		}
@@ -420,13 +429,11 @@ public class SdlService extends Service implements IProxyListenerALM{
 
 	private void performAlert(){
 		try {
-			Image image = new Image();
-			image.setValue(SDL_IMAGE_FILENAME);
-			image.setImageType(ImageType.DYNAMIC);
+
 			Alert alert = new Alert();
-			alert.setAlertText1("Alert Text 1");
-			alert.setAlertText2("Alert Text 2");
-			alert.setAlertText3("Alert Text 3");
+			alert.setAlertText1("!! Low Fuel Alert !!");
+			alert.setAlertText2("Decelerate to 50 MPH to reach closet Gas Station in 30 miles");
+			alert.setAlertText3("Current Milage Estimate: 20 ");
 			alert.setDuration(5000);
 			alert.setProgressIndicator(true);
 			alert.setPlayTone(true);
