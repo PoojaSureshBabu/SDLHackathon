@@ -139,7 +139,7 @@ public class SdlService extends Service implements IProxyListenerALM{
 	// The default port is 12345
 	// The IP is of the machine that is running SDL Core
 	private static final int TCP_PORT = 12345;
-	private static final String DEV_MACHINE_IP_ADDRESS = "192.168.1.78";
+	private static final String DEV_MACHINE_IP_ADDRESS = "10.72.0.125";
 
 	// variable to create and call functions of the SyncProxy
 	private SdlProxyALM proxy = null;
@@ -231,7 +231,7 @@ public class SdlService extends Service implements IProxyListenerALM{
 					}
 				}
 				if(transport != null) {
-					proxy = new SdlProxyALM(this, APP_NAME, true, APP_ID, transport);
+					proxy = new SdlProxyALM(this, APP_NAME, false, APP_ID, transport);
 				}
 			} catch (SdlException e) {
 				e.printStackTrace();
@@ -376,7 +376,7 @@ public class SdlService extends Service implements IProxyListenerALM{
 		if(notification.getHmiLevel().equals(HMILevel.HMI_FULL)){			
 			if (notification.getFirstRun()) {
 				// send welcome message if applicable
-//				performWelcomeMessage();
+				//performWelcomeMessage();
 				performAlert();
 			}
 			// Other HMI (Show, PerformInteraction, etc.) would go here
